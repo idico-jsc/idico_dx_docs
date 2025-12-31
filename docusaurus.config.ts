@@ -11,11 +11,11 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://docs.idico.com',
-  baseUrl: '/',
+  url: 'https://idico-jsc.github.io',
+  baseUrl: '/idico_dx_docs/',
 
   organizationName: 'idico-jsc',
-  projectName: 'idico_docs',
+  projectName: 'idico_dx_docs',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -41,7 +41,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/idico-jsc/idico_docs/edit/main/',
+          editUrl: 'https://github.com/idico-jsc/idico_dx_docs/edit/main/',
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
         },
@@ -49,7 +49,7 @@ const config: Config = {
           showReadingTime: true,
           blogTitle: 'IDICO Updates',
           blogDescription: 'Updates and announcements for IDICO IPMS',
-          editUrl: 'https://github.com/idico-jsc/idico_docs/edit/main/',
+          editUrl: 'https://github.com/idico-jsc/idico_dx_docs/edit/main/',
           feedOptions: {
             type: ['rss', 'atom'],
             xslt: true,
