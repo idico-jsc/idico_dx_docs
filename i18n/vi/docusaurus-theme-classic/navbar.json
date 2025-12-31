@@ -1,0 +1,22 @@
+{
+  "title": {
+    "message": "IDICO IPMS",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "Logo IDICO",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Developer Docs": {
+    "message": "Tài liệu Nhà phát triển",
+    "description": "Navbar item with label Developer Docs"
+  },
+  "item.label.User Guides": {
+    "message": "Hướng dẫn Người dùng",
+    "description": "Navbar item with label User Guides"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}

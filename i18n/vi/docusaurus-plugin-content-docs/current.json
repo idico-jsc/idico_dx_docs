@@ -1,0 +1,46 @@
+{
+  "version.label": {
+    "message": "Mới nhất",
+    "description": "The label for version current"
+  },
+  "sidebar.developerSidebar.category.Getting Started": {
+    "message": "Bắt đầu",
+    "description": "The label for category 'Getting Started' in sidebar 'developerSidebar'"
+  },
+  "sidebar.developerSidebar.category.Architecture": {
+    "message": "Kiến trúc",
+    "description": "The label for category 'Architecture' in sidebar 'developerSidebar'"
+  },
+  "sidebar.developerSidebar.category.Frontend Development": {
+    "message": "Phát triển Frontend",
+    "description": "The label for category 'Frontend Development' in sidebar 'developerSidebar'"
+  },
+  "sidebar.developerSidebar.category.Authentication": {
+    "message": "Xác thực",
+    "description": "The label for category 'Authentication' in sidebar 'developerSidebar'"
+  },
+  "sidebar.developerSidebar.category.Mobile Development": {
+    "message": "Phát triển Mobile",
+    "description": "The label for category 'Mobile Development' in sidebar 'developerSidebar'"
+  },
+  "sidebar.developerSidebar.category.Testing": {
+    "message": "Kiểm thử",
+    "description": "The label for category 'Testing' in sidebar 'developerSidebar'"
+  },
+  "sidebar.developerSidebar.category.Deployment": {
+    "message": "Triển khai",
+    "description": "The label for category 'Deployment' in sidebar 'developerSidebar'"
+  },
+  "sidebar.userSidebar.category.Getting Started": {
+    "message": "Bắt đầu",
+    "description": "The label for category 'Getting Started' in sidebar 'userSidebar'"
+  },
+  "sidebar.userSidebar.category.Features": {
+    "message": "Tính năng",
+    "description": "The label for category 'Features' in sidebar 'userSidebar'"
+  },
+  "sidebar.userSidebar.category.Guides": {
+    "message": "Hướng dẫn",
+    "description": "The label for category 'Guides' in sidebar 'userSidebar'"
+  }
+}
