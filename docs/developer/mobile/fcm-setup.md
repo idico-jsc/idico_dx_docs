@@ -40,7 +40,7 @@ User Device → FCM Token Generated → Stored in Backend
 ### 2. Add Apps
 
 **Web App**:
-1. Click web icon (</>)
+1. Click the web icon (`</>` symbol)
 2. Register with nickname
 3. Copy configuration values
 
