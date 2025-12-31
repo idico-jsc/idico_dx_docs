@@ -1,0 +1,3 @@
+- Business logic (backend)
+- API Docs
+- Frontend components
