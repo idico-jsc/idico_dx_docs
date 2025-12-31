@@ -1,65 +1,66 @@
-import { themes as prismThemes } from 'prism-react-renderer';
-import type { Config } from '@docusaurus/types';
-import type * as Preset from '@docusaurus/preset-classic';
+import { themes as prismThemes } from "prism-react-renderer";
+import type { Config } from "@docusaurus/types";
+import type * as Preset from "@docusaurus/preset-classic";
 
 const config: Config = {
-  title: 'IDICO IPMS Documentation',
-  tagline: 'Industrial Park Management System Documentation',
-  favicon: 'img/favicon.ico',
+  title: "IDICO IPMS Documentation",
+  tagline: "Industrial Park Management System Documentation",
+  favicon: "img/favicon.ico",
 
   future: {
     v4: true,
   },
 
-  url: 'https://idico-jsc.github.io',
-  baseUrl: '/idico_dx_docs/',
+  url: "https://idico-jsc.github.io",
+  baseUrl: "/idico_dx_docs/",
 
-  organizationName: 'idico-jsc',
-  projectName: 'idico_dx_docs',
+  organizationName: "idico-jsc",
+  projectName: "idico_dx_docs",
 
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: "throw",
+  onBrokenMarkdownLinks: "warn",
+  trailingSlash: false,
 
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'vi'],
+    defaultLocale: "en",
+    locales: ["en", "vi"],
     localeConfigs: {
       en: {
-        label: 'English',
-        htmlLang: 'en-US',
+        label: "English",
+        htmlLang: "en-US",
       },
       vi: {
-        label: 'Tiếng Việt',
-        htmlLang: 'vi-VN',
+        label: "Tiếng Việt",
+        htmlLang: "vi-VN",
       },
     },
   },
 
   presets: [
     [
-      'classic',
+      "classic",
       {
         docs: {
-          sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/idico-jsc/idico_dx_docs/edit/main/',
+          sidebarPath: "./sidebars.ts",
+          editUrl: "https://github.com/idico-jsc/idico_dx_docs/edit/main/",
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
         },
         blog: {
           showReadingTime: true,
-          blogTitle: 'IDICO Updates',
-          blogDescription: 'Updates and announcements for IDICO IPMS',
-          editUrl: 'https://github.com/idico-jsc/idico_dx_docs/edit/main/',
+          blogTitle: "IDICO Updates",
+          blogDescription: "Updates and announcements for IDICO IPMS",
+          editUrl: "https://github.com/idico-jsc/idico_dx_docs/edit/main/",
           feedOptions: {
-            type: ['rss', 'atom'],
+            type: ["rss", "atom"],
             xslt: true,
           },
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
+          onInlineTags: "warn",
+          onInlineAuthors: "warn",
+          onUntruncatedBlogPosts: "warn",
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: "./src/css/custom.css",
         },
       } satisfies Preset.Options,
     ],
@@ -67,87 +68,87 @@ const config: Config = {
 
   themes: [
     [
-      require.resolve('@easyops-cn/docusaurus-search-local'),
+      require.resolve("@easyops-cn/docusaurus-search-local"),
       {
         hashed: true,
-        language: ['en', 'vi'],
+        language: ["en", "vi"],
         highlightSearchTermsOnTargetPage: true,
         explicitSearchResultPath: true,
-        docsRouteBasePath: '/docs',
+        docsRouteBasePath: "/docs",
         indexBlog: true,
       },
     ],
   ],
 
   themeConfig: {
-    image: 'img/social-card.png',
+    image: "img/social-card.png",
     colorMode: {
-      defaultMode: 'light',
+      defaultMode: "light",
       disableSwitch: false,
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'IDICO IPMS',
+      title: "IDICO IPMS",
       logo: {
-        alt: 'IDICO Logo',
-        src: 'img/logo.svg',
+        alt: "IDICO Logo",
+        src: "img/logo.svg",
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'developerSidebar',
-          position: 'left',
-          label: 'Developer Docs',
+          type: "docSidebar",
+          sidebarId: "developerSidebar",
+          position: "left",
+          label: "Developer Docs",
         },
         {
-          type: 'docSidebar',
-          sidebarId: 'userSidebar',
-          position: 'left',
-          label: 'User Guides',
+          type: "docSidebar",
+          sidebarId: "userSidebar",
+          position: "left",
+          label: "User Guides",
         },
-        { to: '/blog', label: 'Updates', position: 'left' },
+        { to: "/blog", label: "Updates", position: "left" },
         {
-          type: 'localeDropdown',
-          position: 'right',
+          type: "localeDropdown",
+          position: "right",
         },
         {
-          href: 'https://github.com/idico-jsc/idico_ipms_web',
-          label: 'GitHub',
-          position: 'right',
+          href: "https://github.com/idico-jsc/idico_ipms_web",
+          label: "GitHub",
+          position: "right",
         },
       ],
     },
     footer: {
-      style: 'dark',
+      style: "dark",
       links: [
         {
-          title: 'Documentation',
+          title: "Documentation",
           items: [
             {
-              label: 'Developer Docs',
-              to: '/docs/developer/getting-started/installation',
+              label: "Developer Docs",
+              to: "/docs/developer/getting-started/installation",
             },
             {
-              label: 'User Guides',
-              to: '/docs/user/getting-started/introduction',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'GitHub',
-              href: 'https://github.com/idico-jsc',
+              label: "User Guides",
+              to: "/docs/user/getting-started/introduction",
             },
           ],
         },
         {
-          title: 'More',
+          title: "Community",
           items: [
             {
-              label: 'Updates',
-              to: '/blog',
+              label: "GitHub",
+              href: "https://github.com/idico-jsc",
+            },
+          ],
+        },
+        {
+          title: "More",
+          items: [
+            {
+              label: "Updates",
+              to: "/blog",
             },
           ],
         },
@@ -157,13 +158,13 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
-      additionalLanguages: ['bash', 'typescript', 'json', 'tsx', 'python'],
+      additionalLanguages: ["bash", "typescript", "json", "tsx", "python"],
     },
     announcementBar: {
-      id: 'welcome',
-      content: 'Welcome to the IDICO IPMS documentation!',
-      backgroundColor: '#1a73e8',
-      textColor: '#ffffff',
+      id: "welcome",
+      content: "Welcome to the IDICO IPMS documentation!",
+      backgroundColor: "#1a73e8",
+      textColor: "#ffffff",
       isCloseable: true,
     },
   } satisfies Preset.ThemeConfig,
