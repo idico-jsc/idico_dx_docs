@@ -46,19 +46,7 @@ const config: Config = {
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
         },
-        blog: {
-          showReadingTime: true,
-          blogTitle: "IDICO Updates",
-          blogDescription: "Updates and announcements for IDICO IPMS",
-          editUrl: "https://github.com/idico-jsc/idico_dx_docs/edit/main/",
-          feedOptions: {
-            type: ["rss", "atom"],
-            xslt: true,
-          },
-          onInlineTags: "warn",
-          onInlineAuthors: "warn",
-          onUntruncatedBlogPosts: "warn",
-        },
+        blog: false,
         theme: {
           customCss: "./src/css/custom.css",
         },
@@ -75,7 +63,7 @@ const config: Config = {
         highlightSearchTermsOnTargetPage: true,
         explicitSearchResultPath: true,
         docsRouteBasePath: "/docs",
-        indexBlog: true,
+        indexBlog: false,
       },
     ],
   ],
@@ -106,7 +94,6 @@ const config: Config = {
           position: "left",
           label: "User Guides",
         },
-        { to: "/blog", label: "Updates", position: "left" },
         {
           type: "localeDropdown",
           position: "right",
@@ -143,15 +130,6 @@ const config: Config = {
             },
           ],
         },
-        {
-          title: "More",
-          items: [
-            {
-              label: "Updates",
-              to: "/blog",
-            },
-          ],
-        },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} IDICO JSC. Built with Docusaurus.`,
     },
@@ -163,7 +141,7 @@ const config: Config = {
     announcementBar: {
       id: "welcome",
       content: "Welcome to the IDICO IPMS documentation!",
-      backgroundColor: "#1a73e8",
+      backgroundColor: "#074747",
       textColor: "#ffffff",
       isCloseable: true,
     },
