@@ -40,6 +40,7 @@ Industrial parks provide land and facilities to businesses (tenants) on a long-t
 - Limited reporting and analytics capabilities
 - Inconsistent data about contacts and organizations
 - No standardized process for lead qualification
+- **Organization changes during sales process**: Difficulty tracking when the contracting organization differs from the initial inquiry organization (e.g., initial contact from Company A, but final contract signed by Company B due to parent/subsidiary relationships or corporate restructuring)
 
 ### 2.3 Business Objectives
 - Streamline the tenant acquisition process
@@ -76,6 +77,35 @@ Contact → Organization → Lead → Opportunity → Site Visit → MOU Agreeme
 
 **Contract**: The final lease agreement executed between IDICO and the tenant.
 
+### 3.2 Multi-Organization Scenario
+
+**Business Case**: In real-world scenarios, the organization involved at the beginning of the sales process may differ from the organization that ultimately signs the contract. The CRM system must accommodate this complexity.
+
+**Common Scenario Example**:
+1. **Initial Contact**: Mr. Nguyen (Contact) from **Company A Ltd.** makes initial inquiry
+2. **Lead Stage**: Lead is created and qualified with Company A as the primary organization
+3. **Opportunity Stage**: Opportunity progresses with Company A evaluating land parcels
+4. **Site Visit**: Company A representatives conduct site visits
+5. **MOU Stage**: MOU is drafted and signed with **Company A Ltd.**
+6. **Contract Stage**: Final lease contract is signed with **Company B Corp.** (different organization)
+
+**Reasons for Organization Changes**:
+- **Parent-Subsidiary Structure**: Initial contact from subsidiary, but parent company signs contract
+- **Corporate Restructuring**: Company reorganization during negotiation period
+- **Special Purpose Vehicle (SPV)**: Client creates new legal entity specifically for the lease
+- **Sister Companies**: Different entities within same corporate group handle different stages
+- **Representative/Agent**: Initial contact acts as representative/consultant for actual lessee
+- **Joint Venture**: Multiple organizations come together to form new entity for the contract
+
+**System Requirements**:
+- Support multiple organizations throughout a single opportunity lifecycle
+- Track which organization is involved at each stage
+- Maintain complete audit trail of organization changes
+- Allow one contact to represent multiple organizations
+- Enable smooth handoff between organizations without losing process continuity
+- Alert users when organization changes occur
+- Require documentation/approval for organization changes at critical stages (MOU to Contract)
+
 ---
 
 ## 4. Functional Requirements
@@ -104,11 +134,20 @@ Contact → Organization → Lead → Opportunity → Site Visit → MOU Agreeme
 
 - **Contact relationships**: Map relationships between contacts within the same or different organizations
 
+- **Multi-organization affiliation**:
+  - Link one contact to multiple organizations simultaneously
+  - Define role/relationship for each organization association (Employee, Consultant, Director, Representative, Agent, etc.)
+  - Track active/inactive status for each organization relationship
+  - Record start and end dates for each affiliation
+  - Designate primary organization for each contact
+
 #### 4.1.2 Business Rules
 - A contact must have at least a name, email, and phone number
-- A contact can be associated with multiple organizations (current employer, previous employer, etc.)
+- **A contact can be associated with multiple organizations simultaneously** (critical for multi-organization scenarios)
+- Each contact-organization relationship must specify the role and relationship type
 - Email addresses must be unique per contact
 - Duplicate detection should warn users when creating similar contacts
+- When a contact is involved in an opportunity, all their associated organizations should be visible to users
 
 ### 4.2 Organization Management
 
@@ -129,6 +168,16 @@ Contact → Organization → Lead → Opportunity → Site Visit → MOU Agreeme
 
 - **Organization hierarchy**: Track parent-subsidiary relationships
 
+- **Inter-organization relationships**:
+  - Parent company
+  - Subsidiary companies (one-to-many)
+  - Sister companies (related entities under same parent)
+  - Related companies (joint ventures, partnerships)
+  - Relationship type (Parent, Subsidiary, Sister, SPV, Agent/Representative, Partner, etc.)
+  - Relationship start/end dates
+  - Ownership percentage (if applicable)
+  - Visual organization chart/hierarchy
+
 - **Organization categorization**:
   - Industry classification
   - Company size tiers
@@ -136,11 +185,19 @@ Contact → Organization → Lead → Opportunity → Site Visit → MOU Agreeme
 
 - **Organization history**: Track all activities and touchpoints with the organization
 
+- **Multi-organization opportunity tracking**:
+  - View all opportunities where this organization is involved (as initial org, current org, or related org)
+  - Track organization's role in each opportunity
+  - History of organization replacements/changes
+
 #### 4.2.2 Business Rules
 - Organization name and business registration number are required
 - Business registration numbers must be unique
 - An organization can have multiple contacts with different roles
 - At least one contact should be designated as the primary contact
+- **Organizations can have relationships with other organizations** (parent/subsidiary/sister companies)
+- When an organization is replaced in an opportunity, the system should suggest related organizations (parent, subsidiary, sister companies)
+- Circular relationships (e.g., A is parent of B, and B is parent of A) must be prevented
 
 ### 4.3 Lead Management
 
@@ -148,7 +205,8 @@ Contact → Organization → Lead → Opportunity → Site Visit → MOU Agreeme
 - **Lead creation**: Convert an organization to a lead when they express interest
 
 - **Lead information**:
-  - Associated organization (required)
+  - **Primary organization** (required) - the organization initially expressing interest
+  - **Related organizations** (optional) - other organizations that may be involved (parent, subsidiary, etc.)
   - Primary contact (required)
   - Lead source (website inquiry, referral, event, cold call, etc.)
   - Lead status (New, Contacted, Qualified, Unqualified, Nurturing)
@@ -160,6 +218,7 @@ Contact → Organization → Lead → Opportunity → Site Visit → MOU Agreeme
   - Competitor information
   - Assigned sales representative (required)
   - Lead score (automated or manual)
+  - **Organization notes**: Document if the final contracting entity may differ from primary organization
 
 - **Lead qualification**: Structured process to qualify leads
   - Budget confirmation
@@ -179,11 +238,13 @@ Contact → Organization → Lead → Opportunity → Site Visit → MOU Agreeme
 - **Lead conversion**: Convert qualified leads to opportunities
 
 #### 4.3.2 Business Rules
-- A lead must be associated with an organization and primary contact
+- A lead must be associated with a primary organization and primary contact
+- **Multiple related organizations can be linked to a single lead** to accommodate corporate structures
 - Lead status must be updated within 48 hours of any interaction
 - Only qualified leads can be converted to opportunities
 - Sales representatives must be assigned to all active leads
 - Lead scores should be recalculated automatically based on activities and updates
+- During lead qualification, sales reps should identify and document potential organization changes (e.g., if parent company will sign instead of subsidiary)
 
 ### 4.4 Opportunity Management
 
@@ -192,8 +253,20 @@ Contact → Organization → Lead → Opportunity → Site Visit → MOU Agreeme
 
 - **Opportunity details**:
   - Opportunity name/title (required)
-  - Associated lead/organization (required)
-  - Primary contact
+  - Associated lead (required)
+  - **Initial organization** (required) - the organization when opportunity was created
+  - **Current organization** (required) - the active organization for this opportunity
+  - **Organization history** - audit trail of all organization changes with:
+    - Previous organization
+    - New organization
+    - Date of change
+    - Reason for change
+    - User who made the change
+    - Stage when change occurred
+    - Supporting documentation
+  - **Related organizations** - all organizations involved or potentially involved
+  - Primary contact (can change when organization changes)
+  - Contact history (track contact changes)
   - Opportunity stage (Qualification, Proposal, Negotiation, Closed Won, Closed Lost)
   - Land/facility requirements:
     - Land size (hectares or m²)
@@ -230,12 +303,32 @@ Contact → Organization → Lead → Opportunity → Site Visit → MOU Agreeme
   - Email integration
   - Task management
 
+- **Organization change management**:
+  - **Change organization** functionality:
+    - Select new organization (with suggestions from related orgs)
+    - Document reason for change
+    - Attach supporting documents
+    - Require approval based on stage (e.g., changing org during MOU/Contract stages requires management approval)
+    - Notify relevant stakeholders
+  - **Organization comparison view**: Compare initial vs current organization details
+  - **Alerts**: System alerts when organization changes occur
+  - **Relationship indicator**: Visual indicator showing relationship between organizations (parent, subsidiary, etc.)
+
 #### 4.4.2 Business Rules
 - Opportunities must progress through defined stages sequentially
 - Each stage requires specific information to be completed before advancing
 - Opportunity value and probability must be updated when stage changes
 - Lost opportunities must include a reason for loss
 - Won opportunities automatically trigger contract creation process
+- **Organization changes**:
+  - An opportunity must always have a current organization
+  - Organization changes must be documented with a reason
+  - Initial organization cannot be changed (for historical record)
+  - Organization changes at MOU or Contract stages require management approval
+  - When organization changes, system should verify all related documents are updated
+  - System should alert if MOU organization differs from Contract organization
+  - All organization changes must be logged in the audit trail
+- **Contact flexibility**: Primary contact can change when organization changes, but original contact should remain linked to opportunity history
 
 ### 4.5 Site Visit Management
 
@@ -278,19 +371,21 @@ Contact → Organization → Lead → Opportunity → Site Visit → MOU Agreeme
 
 ### 4.6 MOU Agreement Management
 
-#### 4.6.3 Core Capabilities
+#### 4.6.1 Core Capabilities
 - **MOU creation**:
   - Link to opportunity (required)
+  - **MOU organization** (required) - the specific organization signing this MOU (defaults to current opportunity organization)
+  - **Organization lock**: Once MOU is created, the associated organization is locked to this MOU document
   - MOU type (standard, customized)
   - Template selection
   - Key terms:
-    - Parties involved
+    - **Parties involved** (IDICO and the MOU organization)
     - Land parcel details
     - Lease duration
     - Rental terms
     - Payment schedule
     - Special conditions
-  - MOU draft generation
+  - MOU draft generation with organization details automatically populated
 
 - **MOU workflow**:
   - Draft status
@@ -312,21 +407,41 @@ Contact → Organization → Lead → Opportunity → Site Visit → MOU Agreeme
   - Validity period
   - Conditions precedent
 
-#### 4.6.4 Business Rules
+#### 4.6.2 Business Rules
 - MOU can only be created for opportunities in Proposal or Negotiation stages
+- **MOU is locked to the organization specified at creation time** - this organization cannot be changed after MOU is created
+- If opportunity organization changes after MOU creation, the MOU remains associated with the original MOU organization
 - MOU requires legal team approval before sending to prospect
 - All MOU revisions must be tracked and logged
 - MOU must have an expiration date
 - Executed MOU automatically advances opportunity to Contract stage
+- **Multi-organization handling**:
+  - If opportunity organization changes before MOU is created, MOU uses new organization
+  - If opportunity organization changes after MOU is executed, system alerts users that Contract may be with different organization
+  - System must allow viewing which organization signed the MOU vs which organization is current on the opportunity
+  - Multiple MOUs can exist for one opportunity if organization changes mid-process (rare but must be supported)
 
 ### 4.7 Contract Management
 
 #### 4.7.1 Core Capabilities
 - **Contract creation**:
   - Link to MOU and opportunity (required)
+  - **Contract organization** (required) - the specific organization signing the final contract
+  - **Organization validation**:
+    - If contract organization differs from MOU organization, system displays warning/alert
+    - Show organization comparison: MOU org vs Contract org
+    - Display relationship between organizations (if exists)
+    - Require additional approval when organizations differ
+    - Require documentation explaining the change
+  - **Organization verification checklist**:
+    - Confirm legal authority of new organization
+    - Verify business registration documents
+    - Confirm relationship to MOU organization (if applicable)
+    - Document reason for organization change
   - Contract type (lease agreement)
   - Contract terms (inherit from MOU, allow modifications)
   - Final negotiated terms:
+    - **Parties involved** (IDICO and the Contract organization)
     - Lease duration
     - Rental rate
     - Payment terms
@@ -357,10 +472,24 @@ Contact → Organization → Lead → Opportunity → Site Visit → MOU Agreeme
 
 #### 4.7.2 Business Rules
 - Contracts can only be created from executed MOUs
+- **Contract organization is locked once contract is created** - cannot be changed after creation
 - All contracts require executive approval before execution
 - Contract terms cannot deviate significantly from MOU without re-approval
 - Executed contracts automatically close opportunity as "Won"
 - Contract data is automatically synced to Finance and Operations modules
+- **Multi-organization scenario handling**:
+  - **Same organization**: If contract organization matches MOU organization, standard approval workflow applies
+  - **Different organization**: If contract organization differs from MOU organization:
+    - System displays prominent warning during contract creation
+    - Requires executive/legal approval (higher authority than standard contracts)
+    - Must document reason for organization change (dropdown: Parent Company, Subsidiary, SPV, Corporate Restructuring, Other)
+    - Must upload supporting documentation (corporate structure proof, authorization letters, etc.)
+    - Extended approval workflow includes legal verification
+    - Finance team must be notified for billing setup
+  - System maintains clear linkage: Initial Org → MOU Org → Contract Org
+  - Audit trail must capture complete organization history from lead to contract
+  - Contract organization becomes the "tenant" in downstream systems (Finance, Operations)
+- **Organization relationship tracking**: System should automatically detect and display if contract organization is related to MOU organization (parent/subsidiary/sister company)
 
 ---
 
@@ -393,6 +522,8 @@ Contact → Organization → Lead → Opportunity → Site Visit → MOU Agreeme
   - Average deal cycle time
   - Revenue forecasting
   - Activity reports
+  - **Organization change report**: Track opportunities where organizations changed during the sales process
+  - **MOU vs Contract organization variance report**: Identify and analyze cases where MOU and Contract organizations differ
 
 - **Custom reports**: Ad-hoc report builder
 - **Dashboards**: Role-based dashboards with key metrics
@@ -653,6 +784,13 @@ Contact → Organization → Lead → Opportunity → Site Visit → MOU Agreeme
 | **Conversion Rate** | Percentage of records progressing from one stage to the next |
 | **Sales Cycle** | Total time from initial contact to signed contract |
 | **Win Rate** | Percentage of opportunities that result in signed contracts |
+| **Multi-Organization Scenario** | Business situation where different organizations are involved at different stages of the sales process (e.g., Company A initiates inquiry but Company B signs final contract) |
+| **Initial Organization** | The organization associated with an opportunity when it was first created |
+| **Current Organization** | The active organization currently associated with an opportunity |
+| **MOU Organization** | The specific organization that signed the MOU document |
+| **Contract Organization** | The specific organization that signs the final lease contract |
+| **SPV (Special Purpose Vehicle)** | A legal entity created specifically for a particular business purpose, such as signing a lease |
+| **Related Organizations** | Organizations connected through parent/subsidiary, sister company, or other corporate relationships |
 
 ---
 
@@ -667,6 +805,10 @@ Contact → Organization → Lead → Opportunity → Site Visit → MOU Agreeme
 
 ---
 
-**Document Version**: 1.0
-**Last Updated**: 2026-01-02
+**Document Version**: 1.1
+**Last Updated**: 2026-01-03
 **Next Review Date**: TBD
+
+**Changelog**:
+- v1.1 (2026-01-03): Added comprehensive multi-organization scenario support throughout all modules
+- v1.0 (2026-01-02): Initial document creation
