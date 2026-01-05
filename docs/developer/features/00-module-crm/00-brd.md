@@ -1,3 +1,11 @@
+---
+id: crm-brd
+title: BRD - CRM Module
+sidebar_label: BRD
+sidebar_position: 1
+description: Business Requirements Document for CRM Module - Industrial Park Leasing Management
+---
+
 # Business Requirements Document (BRD)
 ## CRM Module - Industrial Park Leasing Management
 
