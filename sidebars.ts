@@ -64,6 +64,28 @@ const sidebars: SidebarsConfig = {
         'developer/deployment/branch-protection',
       ],
     },
+    {
+      type: 'category',
+      label: 'Features',
+      items: [
+        {
+          type: 'category',
+          label: 'Module CRM',
+          items: [
+            'developer/features/module-crm/crm-brd',
+            'developer/features/module-crm/crm-implementation-plan',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Module Customer Portal',
+          items: [
+            'developer/features/module-customer-portal/customer-portal-brd',
+            'developer/features/module-customer-portal/customer-portal-implementation-plan',
+          ],
+        },
+      ],
+    },
   ],
 
   // User documentation sidebar
